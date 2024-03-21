@@ -11,7 +11,6 @@ import com.example.hackathon.repository.FileDataRepository;
 import com.example.hackathon.repository.PetitionRepository;
 import com.example.hackathon.repository.PublicationRepository;
 import com.example.hackathon.service.FileDataService;
-import com.example.hackathon.service.OpenAIApiService;
 import com.example.hackathon.service.PetitionService;
 import com.example.hackathon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,11 @@ import java.util.*;
 public class PetitionServiceImpl implements PetitionService {
 
 
-    @Value("${openai.api.key}")
     public String apiKey;
 
     @Autowired
     private  PetitionMapper petitionMapper;
-    @Autowired
-    private OpenAIApiService openAIApiService;
+
     @Autowired
 
     private  PetitionRepository petitionRepository;
@@ -140,19 +137,19 @@ public class PetitionServiceImpl implements PetitionService {
         return petitionMapper.toDto(petitionRepository.findById(petitionId).get());
     }
 
-    @Override
-    public String createPetitionAI(Long publicationId) {
-        System.out.println("the function is called");
-        Publication publication = publicationRepository.findById(publicationId).get();
-        List<Comment> topComments = commentRepository.findTop3ByPublicationOrderByLikeCountDesc(publication);
-        StringBuilder commentsText = new StringBuilder();
-        for (Comment comment : topComments) {
-            commentsText.append(comment.getComment()).append(" "); // Разделители по желанию
-        }
-        System.out.println("the comments: "+commentsText);
-        return openAIApiService.getResponse("оцени данную публикацию(тут название/комментарии и описание) и переработай на петицию, название: "+ publication.getName()+", описание: "+ publication.getDescription()+" и также несколько актуальных коментариев: "+ commentsText+".Пример того как я хочу получить ответ: Название:бла-бла-бла. Описание:бла-бла-бла");
-
-    }
+//    @Override
+//    public String createPetitionAI(Long publicationId) {
+//        System.out.println("the function is called");
+//        Publication publication = publicationRepository.findById(publicationId).get();
+//        List<Comment> topComments = commentRepository.findTop3ByPublicationOrderByLikeCountDesc(publication);
+//        StringBuilder commentsText = new StringBuilder();
+//        for (Comment comment : topComments) {
+//            commentsText.append(comment.getComment()).append(" "); // Разделители по желанию
+//        }
+//        System.out.println("the comments: "+commentsText);
+//        return openAIApiService.getResponse("оцени данную публикацию(тут название/комментарии и описание) и переработай на петицию, название: "+ publication.getName()+", описание: "+ publication.getDescription()+" и также несколько актуальных коментариев: "+ commentsText+".Пример того как я хочу получить ответ: Название:бла-бла-бла. Описание:бла-бла-бла");
+//
+//    }
     @Override
     public Object uploadImagePetition(MultipartFile file, Long id) {
 

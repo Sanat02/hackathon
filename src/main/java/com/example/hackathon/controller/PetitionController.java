@@ -49,11 +49,11 @@ public class PetitionController {
         return petitionService.getById(petitionId);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("/createPetitionWithChat/{publicationId}")
-    public String createPetitionOnChatGpt(@PathVariable Long publicationId){
-        return petitionService.createPetitionAI(publicationId);
-    }
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
+//    @GetMapping("/createPetitionWithChat/{publicationId}")
+//    public String createPetitionOnChatGpt(@PathVariable Long publicationId){
+//        return petitionService.createPetitionAI(publicationId);
+//    }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/update/{petitionId}")
     public PetitionResponse updatePetition(@RequestBody PetitionRequest petitionRequest,@PathVariable Long petitionId){

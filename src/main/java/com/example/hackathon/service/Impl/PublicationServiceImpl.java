@@ -110,7 +110,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     private void checkForGpt(Publication publication) {
         if (publication.getCountLikes()>= publication.getMaxSignCount()){
-            petitionService.createPetitionAI(publication.getId());
+            //petitionService.createPetitionAI(publication.getId());
         }
     }
 

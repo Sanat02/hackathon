@@ -2,7 +2,6 @@ package com.example.hackathon.controller;
 
 import com.example.hackathon.dto.publication.PublicationRequest;
 import com.example.hackathon.dto.publication.PublicationResponse;
-import com.example.hackathon.service.OpenAIApiService;
 import com.example.hackathon.service.PublicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,6 @@ public class PublicationController {
         return publicationService.getPublicationById(publicationId);
     }
 
-    private OpenAIApiService openAIApiService;
 
 
 
