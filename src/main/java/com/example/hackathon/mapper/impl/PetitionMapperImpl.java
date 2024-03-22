@@ -23,7 +23,7 @@ public class PetitionMapperImpl implements PetitionMapper {
     public List<PetitionResponse> toDtos(List<Petition> all) {
         List<PetitionResponse> petitionResponses = new ArrayList<>();
         for(Petition petition: all){
-            petitionResponses.add(toDto(petition));
+            petitionResponses.add(toDtoForAll(petition));
         }
         return petitionResponses;
     }
@@ -62,6 +62,20 @@ public class PetitionMapperImpl implements PetitionMapper {
         petitionResponse.setId(petition.getId());
         petitionResponse.setName(petition.getName());
         petitionResponse.setDescription(petition.getDescription());
+        petitionResponse.setAuthor(petition.getAuthor());
+        petitionResponse.setCreationDate(petition.getCreationDate());
+        petitionResponse.setGoal(petition.getGoal());
+        petitionResponse.setCountSigned(petition.getCountOfSignIn());
+
+        return petitionResponse;
+    }
+    public PetitionResponse toDtoForAll(Petition petition) {
+        PetitionResponse petitionResponse = new PetitionResponse();
+        petitionResponse.setFileDataResponse(petition.getImageOfPetition()==null?null:
+                fileDataMapper.toDto(petition.getImageOfPetition()));
+        petitionResponse.setId(petition.getId());
+        petitionResponse.setName(petition.getName());
+        petitionResponse.setDescription(petition.getDescription().substring(0, 20));
         petitionResponse.setAuthor(petition.getAuthor());
         petitionResponse.setCreationDate(petition.getCreationDate());
         petitionResponse.setGoal(petition.getGoal());
